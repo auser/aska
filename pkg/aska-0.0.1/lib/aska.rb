@@ -5,7 +5,8 @@ Dir["aska/**"].each {|a| require a }
 module Aska
   module ClassMethods
     def rules(str="")
-      str.each_line do |line|
+      str.split(/[\n]+/).each do |line|
+        line = line.chomp
         k = line[/(.+)[=\\\<\>](.*)/, 1].gsub(/\s+/, '')
         v = line[/(.+)[=\\<>](.*)/, 0].gsub(/\s+/, '')
         h = {k => v}
