@@ -14,7 +14,7 @@
   class Car
     include Aska
     attr_accessor :x, :y
-    rules <<-EOR
+    rules :names, <<-EOR
         x > 0
         x > y
         y > 0
@@ -23,7 +23,7 @@
   
   Then you can see if the rules are matched with the call
   
-  @car.rules_valid?
+  @car.rules_valid?(:names)
   
   If they do all match, then the rules_valid? will return true, otherwise it will return false
   
