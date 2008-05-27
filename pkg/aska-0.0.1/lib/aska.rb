@@ -4,17 +4,20 @@ Dir["aska/**"].each {|a| require a }
 
 module Aska
   module ClassMethods
-    def rules(str="")
-      str.split(/[\n]+/).each do |line|
-        line = line.chomp
+    def rules(name=:rules, str="")
+      r = look_up_rules(name)
+      str.each_line do |line|
         k = line[/(.+)[=\\\<\>](.*)/, 1].gsub(/\s+/, '')
         v = line[/(.+)[=\\<>](.*)/, 0].gsub(/\s+/, '')
         h = {k => v}
-        defined_rules << h
+        r << h        
       end
     end
+    def look_up_rules(name)
+      defined_rules["#{name}"] ||= []
+    end
     def defined_rules
-      @defined_rules ||= []
+      @defined_rules ||= {}
     end
   end
   
@@ -22,13 +25,13 @@ module Aska
     def rules
       @rules ||= self.class.defined_rules
     end
-    def rules_valid?
-      rules.each do |rule|
-        return false unless rule_valid?(rule)
+    def valid_rules?(name=:rules)
+      self.class.look_up_rules(name).each do |rule|
+        return false unless valid_rule?(rule, name)
       end
       return true
     end
-    def rule_valid?(rule)
+    def valid_rule?(rule, rules)
       return false unless rule # Can't apply a rule that is nil, can we?
       rule.each do |key,value|
         begin
@@ -36,6 +39,16 @@ module Aska
         rescue Exception => e
           return false
         end
+      end
+    end
+    def method_missing(m, *args)
+      if self.class.defined_rules.has_key?("#{m}")
+        self.class.send(:define_method, m) do
+          self.class.look_up_rules(m)
+        end
+        self.send m
+      else
+        super
       end
     end
   end

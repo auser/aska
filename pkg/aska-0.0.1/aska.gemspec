@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
   s.date = %q{2008-05-27}
   s.description = %q{}
   s.email = %q{}
-  s.extra_rdoc_files = ["CHANGELOG", "lib/aska/rules.rb", "lib/aska.rb", "LICENSE", "README"]
-  s.files = ["CHANGELOG", "lib/aska/rules.rb", "lib/aska.rb", "LICENSE", "README", "spec/rules_spec.rb", "spec/spec_helper.rb", "Manifest", "aska.gemspec"]
+  s.extra_rdoc_files = ["CHANGELOG", "lib/aska.rb", "LICENSE", "README"]
+  s.files = ["CHANGELOG", "lib/aska.rb", "LICENSE", "Manifest", "README", "spec/rules_spec.rb", "spec/spec_helper.rb", "aska.gemspec"]
   s.has_rdoc = true
   s.homepage = %q{}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Aska", "--main", "README"]
