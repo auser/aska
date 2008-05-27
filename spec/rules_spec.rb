@@ -30,6 +30,11 @@ describe "Rules" do
     @car.y = 10
     @car.rules_valid?.should == false
   end
+  it "should be able to apply the rules and say they aren't valid when they aren't all met" do
+    @car.x = 5
+    @car.y = 0
+    @car.rules_valid?.should == false
+  end
   it "should be able to apply the rules and say that they are in fact valid" do
     @car.x = 10
     @car.y = 5

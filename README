@@ -21,6 +21,12 @@
       EOR
   end
   
+  Then you can see if the rules are matched with the call
+  
+  @car.rules_valid?
+  
+  If they do all match, then the rules_valid? will return true, otherwise it will return false
+  
 == INSTALL:
 
   gem install aska
