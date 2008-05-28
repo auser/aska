@@ -9,8 +9,7 @@ module Aska
       str.each_line do |line|
         k = line[/(.+)[=\\\<\>](.*)/, 1].gsub(/\s+/, '')
         v = line[/(.+)[=\\<>](.*)/, 0].gsub(/\s+/, '')
-        h = {k => v}
-        r << h        
+        r << {k => v}
       end
     end
     def look_up_rules(name)

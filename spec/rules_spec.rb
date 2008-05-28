@@ -4,9 +4,9 @@ class Car
   include Aska
   attr_accessor :x, :y
   rules :names, <<-EOR
-      x > 0
-      x > y
+      x > 0      
       y > 0
+      x > y
     EOR
 end
 describe "Rules" do
