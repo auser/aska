@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = %q{The basics of an expert system}
   s.email = %q{ari.lerner@citrusbyte.com}
   s.extra_rdoc_files = ["CHANGELOG", "lib/aska.rb", "LICENSE", "README"]
-  s.files = ["CHANGELOG", "lib/aska.rb", "LICENSE", "Manifest", "Rakefile", "README", "spec/rules_spec.rb", "spec/spec_helper.rb", "aska.gemspec"]
+  s.files = ["aska.gemspec", "CHANGELOG", "lib/aska.rb", "LICENSE", "Manifest", "Rakefile", "README", "spec/rules_spec.rb", "spec/spec_helper.rb"]
   s.has_rdoc = true
   s.homepage = %q{http://blog.citrusbyte.com}
   s.post_install_message = %q{    
