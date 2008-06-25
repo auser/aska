@@ -3,6 +3,7 @@ CHANGELOG
 lib/aska.rb
 LICENSE
 Manifest
+Rakefile
 README
 spec/rules_spec.rb
 spec/spec_helper.rb

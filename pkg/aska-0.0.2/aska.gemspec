@@ -6,26 +6,49 @@ Gem::Specification.new do |s|
   s.name = %q{aska}
   s.version = "0.0.2"
 
-  s.specification_version = 2 if s.respond_to? :specification_version=
-
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = [""]
-  s.date = %q{2008-05-27}
-  s.description = %q{}
-  s.email = %q{}
+  s.authors = ["Ari Lerner"]
+  s.date = %q{2008-06-25}
+  s.description = %q{The basics of an expert system}
+  s.email = %q{ari.lerner@citrusbyte.com}
   s.extra_rdoc_files = ["CHANGELOG", "lib/aska.rb", "LICENSE", "README"]
-  s.files = ["aska.gemspec", "CHANGELOG", "lib/aska.rb", "LICENSE", "Manifest", "README", "spec/rules_spec.rb", "spec/spec_helper.rb"]
+  s.files = ["CHANGELOG", "lib/aska.rb", "LICENSE", "Manifest", "Rakefile", "README", "spec/rules_spec.rb", "spec/spec_helper.rb", "aska.gemspec"]
   s.has_rdoc = true
-  s.homepage = %q{}
+  s.homepage = %q{http://blog.citrusbyte.com}
+  s.post_install_message = %q{    
+    *** Ari Lerner @ <ari.lerner@citrusbyte.com> ***
+    
+}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Aska", "--main", "README"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{aska}
-  s.rubygems_version = %q{1.0.1}
-  s.summary = %q{}
+  s.rubygems_version = %q{1.2.0}
+  s.summary = %q{The basics of an expert system}
+
+  if s.respond_to? :specification_version then
+    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
+    s.specification_version = 2
+
+    if current_version >= 3 then
+    else
+    end
+  else
+  end
 end
 
 
 # # Original Rakefile source (requires the Echoe gem):
 # 
 # require 'echoe'
-# Echoe.new('aska')
+# Echoe.new("aska") do |p|
+#   p.author = "Ari Lerner"
+#   p.email = "ari.lerner@citrusbyte.com"
+#   p.summary = "The basics of an expert system"
+#   p.url = "http://blog.citrusbyte.com"
+#   p.install_message =<<-EOM
+#     
+#     *** Ari Lerner @ <ari.lerner@citrusbyte.com> ***
+#     
+#   EOM
+#   p.include_rakefile = true
+# end
