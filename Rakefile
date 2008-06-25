@@ -6,6 +6,7 @@ Echoe.new("aska") do |p|
   p.url = "http://blog.citrusbyte.com"
   p.install_message =<<-EOM
     
+    Aska - Expert system basics
     *** Ari Lerner @ <ari.lerner@citrusbyte.com> ***
     
   EOM
