@@ -2,7 +2,6 @@ require File.dirname(__FILE__) + '/spec_helper'
 
 class Car
   include Aska
-  attr_accessor :x, :y
   rules :names, <<-EOR
       x > 0      
       y > 0
@@ -19,13 +18,36 @@ describe "Rules" do
   it "should be able to look up the rules based on the name into an array" do
     @car.names.class.should == Array
   end
-  it "should be able to parse the rules lines into an array" do
-    @car.names.include?({"x"=>"x>0"}).should == true
-    @car.names.include?({"x"=>"x>y"}).should == true
-    @car.names.include?({"y"=>"y>0"}).should == true
+  describe "parsing" do
+    it "should be able to parse the x > 0 into an array" do
+      @car.names.include?({:x=>[:>,0]}).should == true
+    end
+    it "should be able to parse y > 0 into an array" do
+      @car.names.include?({:y=>[:>,0]}).should == true
+    end
+    it "should be able to parse x > y into the array" do
+      @car.names.include?({:x=>[:>,:y]}).should == true
+    end
+    it "should have 3 rules" do
+      @car.names.size.should == 3
+    end
+  end
+  it "should be able to get the variable associated with the instance and return it" do
+    @car.get_var(:x).class.should == Symbol
+  end
+  it "should be able to get a number with the instance and return it as a float" do
+    @car.get_var(4).class.should == Float
+  end
+  it "should be able to get the method it's applying as a method symbol" do
+    @car.get_var(:<).class.should == Symbol
+  end
+  it "should be able to see if the rule is valid when it is" do
+    @car.x = 10
+    @car.valid_rule?(Car.look_up_rules(:names).first, @car.rules).should == true
   end
   it "should be able to apply the rules and say that they are not met when they aren't" do
     @car.x = 0
+    @var.y = 0.0
     @car.valid_rules?(:names).should == false
   end
   it "should be able to apply the rules and say they aren't valid when they aren't all met" do
