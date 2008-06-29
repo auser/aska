@@ -8,9 +8,14 @@ module Aska
       r = look_up_rules(name)
       str.each_line do |line|
         k = line[/(.+)[=\\\<\>](.*)/, 1].gsub(/\s+/, '')
-        v = line[/(.+)[=\\<>](.*)/, 0].gsub(/\s+/, '')
-        r << {k => v}
+        v = line[/(.+)[=\\<>](.*)/, 2].gsub(/\s+/, '')
+        m = line[/[=\\<>]/, 0].gsub(/\s+/, '')
+        r << {k => [m, v]}
       end
+    end
+    def create_instance_variable(name)
+      return unless name
+      eval("attr_accessor :#{name}")
     end
     def look_up_rules(name)
       defined_rules["#{name}"] ||= []
@@ -34,7 +39,8 @@ module Aska
       return false unless rule # Can't apply a rule that is nil, can we?
       rule.each do |key,value|
         begin
-          return eval(value)
+          puts "#{key} #{value[0]} #{value[1]}"
+          return "#{key} #{value[0]} #{value[1]}"#eval(value) # gross.
         rescue Exception => e
           return false
         end
