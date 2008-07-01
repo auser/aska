@@ -20,16 +20,19 @@ describe "Rules" do
   end
   describe "parsing" do
     it "should be able to parse the x > 0 into an array" do
-      @car.names.include?({:x=>[:>,0]}).should == true
+      @car.names.include?({"x"=>[">","0"]}).should == true
     end
     it "should be able to parse y > 0 into an array" do
-      @car.names.include?({:y=>[:>,0]}).should == true
+      @car.names.include?({"y"=>[">","0"]}).should == true
     end
-    it "should be able to parse x > y into the array" do
-      @car.names.include?({:x=>[:>,:y]}).should == true
+    it "should be able to parse x > y into the hash" do
+      @car.names.include?({"x"=>[">","y"]}).should == true
     end
     it "should have 3 rules" do
       @car.names.size.should == 3
+    end
+    it "should be able to look up the names as a rule" do
+      Car.look_up_rules(:names).should == [{"x"=>[">", "0"]}, {"y"=>[">", "0"]}, {"x"=>[">", "y"]}]
     end
   end
   it "should be able to get the variable associated with the instance and return it" do
@@ -43,20 +46,15 @@ describe "Rules" do
   end
   it "should be able to retrieve the value of the rule when checking if it's valid" do
     @car.x = 10
-    @car.valid_rule?({:x => [:==, 10]}, @car.rules).should == true
-  end
-  it "should be able to see if the rule is valid when it is" do
-    @car.x = 10
-    @car.valid_rule?(Car.look_up_rules(:names).first, @car.rules).should == true
+    @car.valid_rule?({:x => [:==, 10]}).should == true
   end
   it "should be able to apply the rules and say that they are not met when they aren't" do
-    @car.x = 0
-    @car.y = 0.0
     @car.valid_rules?(:names).should == false
   end
   it "should be able to apply the rules and say they aren't valid when they aren't all met" do
     @car.x = 5
     @car.y = 10
+    # puts (@car.x > 0) && (@car.y > 0) && (@car.x > @car.y)
     @car.valid_rules?(:names).should == false
   end
   it "should be able to apply the rules and say they aren't valid when they aren't all met" do
@@ -66,7 +64,7 @@ describe "Rules" do
   end
   it "should be able to apply the rules and say that they are in fact valid" do
     @car.x = 10
-    @car.y = 5
+    @car.y = 5    
     @car.valid_rules?(:names).should == true
   end
 end

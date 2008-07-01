@@ -17,10 +17,19 @@ module Aska
     end
     def create_instance_variable(name)
       return unless name
-      eval("attr_accessor :#{name};@#{name} = 0.0")
+      attr_accessors << name.to_sym
+      eval <<-EOE
+        attr_accessor :#{name}
+        def #{name}
+          @#{name} ||= 0.0
+        end
+      EOE
     end
     def look_up_rules(name)
       defined_rules["#{name}"] ||= []
+    end
+    def attr_accessors
+      @attr_accessors ||= []
     end
     def defined_rules
       @defined_rules ||= {}
@@ -32,31 +41,34 @@ module Aska
       @rules ||= self.class.defined_rules
     end
     def valid_rules?(name=:rules)
-      self.class.look_up_rules(name).each do |rule|
-        puts "rule: #{rule}"
-        return valid_rule?(rule, name)
+      arr = self.class.look_up_rules(name).collect do |rule|
+        valid_rule?(rule)
       end
-      return false
+      puts arr.join(", ")
+      arr.reject {|a| a == true }.empty?
     end
-    def valid_rule?(rule, rules)
+    def valid_rule?(rule)
       return false unless rule # Can't apply a rule that is nil, can we?
       rule.each do |key,value|
         begin
-          puts "#{key} - #{self.send(key)}.send(#{value[0].to_sym}, #{get_var(value[1])})"
+          puts "testing if #{key} (#{self.send(key)}) is #{value[0]} #{get_var(value[1])}"
           return self.send(key).send(value[0].to_sym, get_var(value[1]))
         rescue Exception => e
           return false
         end
       end
     end
+    # Get the variable from the class
+    # If it's defined as an attr_accessor, we know it has been defined as a rule
+    # Otherwise, if we are passing it as a 
     def get_var(name)
-      attr_accessor?(name) ? name.to_sym : supported_method?(name) ? name.to_sym : name.to_f
+      attr_accessor?(name) ? name.to_sym : (supported_method?(name) ? name.to_sym : name.to_f)
     end
     def attr_accessor?(name)
-      methods.include?("#{name}=") && methods.include?("#{name}")
+      self.class.attr_accessors.include?(name)
     end
     def supported_method?(meth)
-      %w(< == > => =<).include?("#{meth}")
+      %w(< > == => =<).include?("#{meth}")
     end
     def method_missing(m, *args)
       if self.class.defined_rules.has_key?("#{m}")
