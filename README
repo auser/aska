@@ -25,7 +25,16 @@
   
   @car.rules_valid?(:names)
   
+  Currently, the methods that are supported are: < > == => =< to check the rules against
+
+  Aska will try to call the method name given if the method exists on the object, or it will revert to a self-created attribute (named: METHODNAME_aska, if you are curious). This way it does not overwrite any methods on accident and you have access to the data.
+  
+  This rewrite does not use eval on each check.
+  
   If they do all match, then the rules_valid? will return true, otherwise it will return false
+  
+  You can check if a set of rules exist with: are_rules?(:rules)
+  You can check look up the rules manually with: look_up_rules(:rules)
   
 == INSTALL:
 
