@@ -29,6 +29,9 @@ module Aska
     def defined_rules
       @defined_rules ||= {}
     end
+    def aska_named(name)
+      "#{name}_x"
+    end
   end
   
   module InstanceMethods
@@ -58,18 +61,24 @@ module Aska
     def get_var(name)
       attr_accessor?(name) ? self.send(name.to_sym) : (supported_method?(name) ? name.to_sym : name.to_f)
     end
+    def aska_named(name)
+      self.class.aska_named(name)
+    end
     def attr_accessor?(name)
       self.class.attr_accessors.include?(name.to_sym)
     end
     def supported_method?(meth)
       %w(< > == => =<).include?("#{meth}")
     end
-    def method_missing(m, *args)
+    def method_missing(m, *args)      
       if self.class.defined_rules.has_key?("#{m}")
         self.class.send(:define_method, m) do
           self.class.look_up_rules(m)
         end
         self.send m
+      elsif self.class.attr_accessors.include?(m.to_sym)
+        puts "is an attr_accessors #{m.to_sym}"
+        self.send(":#{aska_named(m)}")
       else
         super
       end
