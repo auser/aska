@@ -35,9 +35,6 @@ describe "Rules" do
       Car.look_up_rules(:names).should == [{"x"=>[">", "0"]}, {"y"=>[">", "0"]}, {"x"=>[">", "y"]}]
     end
   end
-  it "should be able to get the variable associated with the instance and return it" do
-    @car.get_var(:x).class.should == Symbol
-  end
   it "should be able to get a number with the instance and return it as a float" do
     @car.get_var(4).class.should == Float
   end
