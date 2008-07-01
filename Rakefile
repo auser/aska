@@ -1,17 +1,21 @@
-require 'echoe'
-Echoe.new("aska") do |p|
-  p.author = "Ari Lerner"
-  p.email = "ari.lerner@citrusbyte.com"
-  p.summary = "The basics of an expert system"
-  p.url = "http://blog.citrusbyte.com"
-  p.dependencies = []
-  p.install_message =<<-EOM
-    
-    Aska - Expert system basics
-    *** Ari Lerner @ <ari.lerner@citrusbyte.com> ***
-    
-  EOM
-  p.include_rakefile = true
+begin
+  require 'echoe'
+  Echoe.new("aska") do |p|
+    p.author = "Ari Lerner"
+    p.email = "ari.lerner@citrusbyte.com"
+    p.summary = "The basics of an expert system"
+    p.url = "http://blog.citrusbyte.com"
+    p.dependencies = []
+    p.install_message =<<-EOM
+
+      Aska - Expert system basics
+      *** Ari Lerner @ <ari.lerner@citrusbyte.com> ***
+
+    EOM
+    p.include_rakefile = true
+  end  
+rescue Exception => e
+  
 end
 
 namespace(:pkg) do
@@ -52,14 +56,6 @@ namespace(:pkg) do
   end
   desc "Update gemspec with the time"
   task :gemspec_update => :gemspec do
-    data = open("aska.gemspec").read
-    str = "Updated at #{Time.now.strftime("%I:%M%p, %D")}"
-    
-    if data.scan(/Updated at/).empty?
-      data = data.gsub(/you just installed PoolParty\!/, '\0'+" (#{str})")
-    end
-    
-    File.open("poolparty.gemspec", "w+") {|f| f << data }
   end
   desc "Get ready to release the gem"
   task :prerelease => :gemspec_update do

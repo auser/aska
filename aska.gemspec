@@ -12,10 +12,10 @@ Gem::Specification.new do |s|
   s.files = ["CHANGELOG", "LICENSE", "README", "Rakefile", "lib", "lib/aska", "lib/aska.rb", "pkg", "spec", "spec/rules_spec.rb", "spec/spec_helper.rb", "aska.gemspec"]
   s.has_rdoc = true
   s.homepage = %q{http://blog.citrusbyte.com}
-  s.post_install_message = %q{    
-    Aska - Expert system basics
-    *** Ari Lerner @ <ari.lerner@citrusbyte.com> ***
-    
+  s.post_install_message = %q{
+Aska - Expert system basics
+*** Ari Lerner @ <ari.lerner@citrusbyte.com> ***
+
 }
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Aska", "--main", "README"]
   s.require_paths = ["lib"]
