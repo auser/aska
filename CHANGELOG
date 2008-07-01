@@ -1,3 +1,7 @@
+v0.0.4  * Added lookup methods
+        * Added supported methods 
+        * Updated README
+        * Renamed all the attr_accessors and namespaced them inside aska
 v0.0.3  * Changed the methodology of storing the rules
         * Removed evaluation
 v0.0.2  * Added buckets of rules
