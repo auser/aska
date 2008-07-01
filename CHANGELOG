@@ -1,2 +1,4 @@
-v0.0.2 Added buckets of rules
-v0.0.1 First write
+v0.0.3  * Changed the methodology of storing the rules
+        * Removed evaluation
+v0.0.2  * Added buckets of rules
+v0.0.1  * First write
