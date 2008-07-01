@@ -41,13 +41,17 @@ describe "Rules" do
   it "should be able to get the method it's applying as a method symbol" do
     @car.get_var(:<).class.should == Symbol
   end
+  it "should be able to retrieve the value of the rule when checking if it's valid" do
+    @car.x = 10
+    @car.valid_rule?({:x => [:==, 10]}, @car.rules).should == true
+  end
   it "should be able to see if the rule is valid when it is" do
     @car.x = 10
     @car.valid_rule?(Car.look_up_rules(:names).first, @car.rules).should == true
   end
   it "should be able to apply the rules and say that they are not met when they aren't" do
     @car.x = 0
-    @var.y = 0.0
+    @car.y = 0.0
     @car.valid_rules?(:names).should == false
   end
   it "should be able to apply the rules and say they aren't valid when they aren't all met" do

@@ -33,7 +33,7 @@ module Aska
     end
     def valid_rules?(name=:rules)
       self.class.look_up_rules(name).each do |rule|
-        puts valid_rule?(rule, name)
+        puts "rule: #{rule}"
         return valid_rule?(rule, name)
       end
       return false
@@ -56,7 +56,7 @@ module Aska
       methods.include?("#{name}=") && methods.include?("#{name}")
     end
     def supported_method?(meth)
-      %w(< = > => =<).include?("#{meth}")
+      %w(< == > => =<).include?("#{meth}")
     end
     def method_missing(m, *args)
       if self.class.defined_rules.has_key?("#{m}")
