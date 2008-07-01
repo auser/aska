@@ -64,6 +64,6 @@ namespace(:pkg) do
   end
   desc "Release them gem to the gem server"
   task :release => :prerelease do
-    `git push gem`
+    `git push origin master`
   end
 end
