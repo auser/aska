@@ -41,6 +41,9 @@
   gem install aska
 
 == ROADMAP
+* v0.0.4 - Namespace rules
+* v0.0.3 - Remove eval from the evaluation of rules
+* v0.0.2 - Add buckets for rules
 * v0.0.1 - First release
 
 == LICENSE:
