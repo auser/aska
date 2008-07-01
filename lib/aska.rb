@@ -17,11 +17,16 @@ module Aska
     end
     def create_instance_variable(name)
       return unless name
-      attr_accessors << name.to_sym
-      eval "attr_accessor :#{name} unless method_defined?(:#{name})"
+      unless attr_accessors.include?(":#{name}")
+        attr_accessors << name.to_sym
+        eval "attr_accessor :#{aska_named(name)}"
+      end
     end
     def look_up_rules(name)
       defined_rules["#{name}"] ||= []
+    end
+    def are_rules?(name)
+      !look_up_rules(name).empty?
     end
     def attr_accessors
       @attr_accessors ||= []
@@ -30,7 +35,7 @@ module Aska
       @defined_rules ||= {}
     end
     def aska_named(name)
-      "#{name}_x"
+      "#{name}_aska"
     end
   end
   
@@ -44,12 +49,19 @@ module Aska
       end
       arr.reject {|a| a == true }.empty?
     end
+    def aska(m)
+      if respond_to?(m.to_sym)
+        self.send(m.to_sym)
+      else
+        self.send(aska_named(m.to_sym))
+      end      
+    end
     def valid_rule?(rule)
       return false unless rule # Can't apply a rule that is nil, can we?
       rule.each do |key,value|
         begin
           # puts "testing if #{key} (#{self.send(key)}) is #{value[0]} #{get_var(value[1])} [#{value[1]}]"
-          return self.send(key).send(value[0].to_sym, get_var(value[1]))
+          return aska(key).send(value[0].to_sym, get_var(value[1]))
         rescue Exception => e
           return false
         end
@@ -59,7 +71,7 @@ module Aska
     # If it's defined as an attr_accessor, we know it has been defined as a rule
     # Otherwise, if we are passing it as a 
     def get_var(name)
-      attr_accessor?(name) ? self.send(name.to_sym) : (supported_method?(name) ? name.to_sym : name.to_f)
+      attr_accessor?(name) ? aska(name) : (supported_method?(name) ? name.to_sym : name.to_f)
     end
     def aska_named(name)
       self.class.aska_named(name)
@@ -70,6 +82,10 @@ module Aska
     def supported_method?(meth)
       %w(< > == => =<).include?("#{meth}")
     end
+    
+    def look_up_rules(r);self.class.look_up_rules(r);end
+    def are_rules?(r);self.class.are_rules?(r);end
+    
     def method_missing(m, *args)      
       if self.class.defined_rules.has_key?("#{m}")
         self.class.send(:define_method, m) do
@@ -77,7 +93,9 @@ module Aska
         end
         self.send m
       elsif self.class.attr_accessors.include?(m.to_sym)
-        puts "is an attr_accessors #{m.to_sym}"
+        self.class.send :define_method, aska_named(m).to_sym do
+          self.send(":#{aska_named(m)}")
+        end
         self.send(":#{aska_named(m)}")
       else
         super

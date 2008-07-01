@@ -7,6 +7,9 @@ class Car
       y > 0
       x > y
     EOR
+  def x=(v)
+    @x = v
+  end
 end
 describe "Rules" do
   before(:each) do
@@ -17,6 +20,22 @@ describe "Rules" do
   end
   it "should be able to look up the rules based on the name into an array" do
     @car.names.class.should == Array
+  end
+  it "should be able to say that rules are defined when they are defined" do
+    @car.names.should_not be_nil
+  end
+  it "should be able tos ay that rules are not defined when they are not defined" do
+    @car.look_up_rules(:cars_and_wheels).should be_empty
+  end
+  it "should be able to say if the rules are not rules" do
+    @car.are_rules?(:cars_and_wheels).should be_false
+  end
+  it "should be able to say that rules are rules" do
+    @car.are_rules?(:names).should be_true
+  end
+  it "should define the rule names as a method after calling it" do
+    @car.x_aska = 4
+    @car.methods.include?(@car.aska_named(:x)).should == true
   end
   describe "parsing" do
     it "should be able to parse the x > 0 into an array" do
@@ -35,9 +54,13 @@ describe "Rules" do
       Car.look_up_rules(:names).should == [{"x"=>[">", "0"]}, {"y"=>[">", "0"]}, {"x"=>[">", "y"]}]
     end
   end
+  it "should use x if available instead of x_aska" do
+    @car.x = 6
+    @car.get_var(:x).class.should == @car.x_aska.class
+  end
   it "should be able to get the variable associated with the instance and return it" do    
-    @car.x = 4
-    @car.get_var(:x).class.should == @car.x.class
+    @car.x_aska = 4
+    @car.get_var(:x).class.should == @car.x_aska.class
   end
   it "should be able to get a number with the instance and return it as a float" do
     @car.get_var(4).class.should == Float
@@ -46,25 +69,25 @@ describe "Rules" do
     @car.get_var(:<).class.should == Symbol
   end
   it "should be able to retrieve the value of the rule when checking if it's valid" do
-    @car.x = 10
+    @car.x_aska = 10
     @car.valid_rule?({:x => [:==, 10]}).should == true
   end
   it "should be able to apply the rules and say that they are not met when they aren't" do
     @car.valid_rules?(:names).should == false
   end
   it "should be able to apply the rules and say they aren't valid when they aren't all met" do
-    @car.x = 5
-    @car.y = 10
+    @car.x_aska = 5
+    @car.y_aska = 10
     @car.valid_rules?(:names).should == false
   end
   it "should be able to apply the rules and say they aren't valid when they aren't all met" do
-    @car.x = 5
-    @car.y = 0
+    @car.x_aska = 5
+    @car.y_aska = 0
     @car.valid_rules?(:names).should == false
   end
   it "should be able to apply the rules and say that they are in fact valid" do
-    @car.x = 10
-    @car.y = 5    
+    @car.x_aska = 10
+    @car.y_aska = 5    
     @car.valid_rules?(:names).should == true
   end
 end
