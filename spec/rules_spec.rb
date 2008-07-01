@@ -35,6 +35,10 @@ describe "Rules" do
       Car.look_up_rules(:names).should == [{"x"=>[">", "0"]}, {"y"=>[">", "0"]}, {"x"=>[">", "y"]}]
     end
   end
+  it "should be able to get the variable associated with the instance and return it" do    
+    @car.x = 4
+    @car.get_var(:x).class.should == @car.x.class
+  end
   it "should be able to get a number with the instance and return it as a float" do
     @car.get_var(4).class.should == Float
   end
@@ -51,7 +55,6 @@ describe "Rules" do
   it "should be able to apply the rules and say they aren't valid when they aren't all met" do
     @car.x = 5
     @car.y = 10
-    # puts (@car.x > 0) && (@car.y > 0) && (@car.x > @car.y)
     @car.valid_rules?(:names).should == false
   end
   it "should be able to apply the rules and say they aren't valid when they aren't all met" do
