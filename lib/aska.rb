@@ -18,7 +18,7 @@ module Aska
     def create_instance_variable(name)
       return unless name
       attr_accessors << name.to_sym
-      eval "attr_accessor :#{name}"
+      eval "attr_accessor :#{name} unless method_defined?(:#{name})"
     end
     def look_up_rules(name)
       defined_rules["#{name}"] ||= []
