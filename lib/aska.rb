@@ -11,8 +11,6 @@ module Aska
         v = line[/(.+)[=\\<>](.*)/, 2].gsub(/\s+/, '')
         m = line[/[=\\<>]/, 0].gsub(/\s+/, '')
         
-        puts line
-        
         create_instance_variable(k)
         r << {k => [m, v]}
       end
