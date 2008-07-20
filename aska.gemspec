@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.has_rdoc = true
   s.homepage = %q{http://blog.citrusbyte.com}
   s.post_install_message = %q{
+    
 Aska - Expert system basics
 See blog.citrusbyte.com for more details
 *** Ari Lerner @ <ari.lerner@citrusbyte.com> ***
