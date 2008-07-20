@@ -1,7 +1,6 @@
-$:.unshift File.dirname(__FILE__)     # For use/testing when no gem is installed
-
-Dir["aska/**"].each {|a| require a }
-
+=begin rdoc
+  Aska
+=end
 module Aska
   module ClassMethods
     def rules(name=:rules, str="")
@@ -54,7 +53,7 @@ module Aska
         self.send(m.to_sym)
       else
         self.send(aska_named(m.to_sym))
-      end      
+      end
     end
     def valid_rule?(rule)
       return false unless rule # Can't apply a rule that is nil, can we?
