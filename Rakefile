@@ -9,6 +9,7 @@ begin
     p.install_message =<<-EOM
 
       Aska - Expert system basics
+      
       See blog.citrusbyte.com for more details
       *** Ari Lerner @ <ari.lerner@citrusbyte.com> ***
 

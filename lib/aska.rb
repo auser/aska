@@ -93,9 +93,9 @@ module Aska
         self.send m
       elsif self.class.attr_accessors.include?(m.to_sym)
         self.class.send :define_method, aska_named(m).to_sym do
-          self.send(":#{aska_named(m)}")
+          self.send(aska_named(m).to_sym)
         end
-        self.send(":#{aska_named(m)}")
+        self.send(aska_named(m).to_sym)
       else
         super
       end
