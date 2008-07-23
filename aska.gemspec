@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new("= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ari Lerner"]
   s.cert_chain = nil
-  s.date = %q{2008-07-20}
+  s.date = %q{2008-07-22}
   s.description = %q{The basics of an expert system}
   s.email = %q{ari.lerner@citrusbyte.com}
   s.extra_rdoc_files = ["CHANGELOG", "LICENSE", "README", "lib", "lib/aska.rb"]
@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://blog.citrusbyte.com}
   s.post_install_message = %q{
 Aska - Expert system basics
+
 See blog.citrusbyte.com for more details
 *** Ari Lerner @ <ari.lerner@citrusbyte.com> ***
 
