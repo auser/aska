@@ -3,6 +3,7 @@ require "rake"
 
 begin
   require 'echoe'
+  
   Echoe.new("aska") do |p|
     p.author = "Ari Lerner"
     p.email = "ari.lerner@citrusbyte.com"
@@ -24,12 +25,6 @@ begin
 rescue LoadError => boom
   puts "You are missing a dependency required for meta-operations on this gem."
   puts "#{boom.to_s.capitalize}."
-  
-  # if you still want tests when Echoe is not present
-  desc 'Run the test suite.'
-  task :test do
-     system "ruby -Ibin:lib:test some_tests_test.rb" # or whatever
-  end
 end
 
 namespace(:pkg) do
