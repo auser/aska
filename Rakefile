@@ -1,3 +1,6 @@
+require "rubygems"
+require "rake"
+
 begin
   require 'echoe'
   Echoe.new("aska") do |p|
@@ -17,8 +20,18 @@ begin
     EOM
     p.include_rakefile = true
   end  
-rescue Exception => e
-  
+rescue LoadError => boom
+  puts "You are missing a dependency required for meta-operations on this gem."
+  puts "#{boom.to_s.capitalize}."
+
+  desc 'No effect.'
+  task :default; end
+
+  # if you still want tests when Echoe is not present
+  desc 'Run the test suite.'
+  task :test do
+     system "ruby -Ibin:lib:test some_tests_test.rb" # or whatever
+  end  
 end
 
 namespace(:pkg) do
