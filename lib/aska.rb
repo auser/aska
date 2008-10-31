@@ -7,6 +7,7 @@ module Aska
     def rules(name=:rules, arr=[])
       returning look_up_rules(name) do |rs|
         arr.each do |line|
+          next unless line
           k = line[/(.+)[=\\\<\>](.*)/, 1].gsub(/\s+/, '')
           v = line[/(.+)[=\\<>](.*)/, 2].gsub(/\s+/, '')
           m = line[/[=\\<>]/, 0].gsub(/\s+/, '')
@@ -31,7 +32,7 @@ module Aska
       !look_up_rules(name).empty?
     end
     def aska_attr_accessors
-      @@aska_attr_accessors ||= Rules.new
+      @aska_attr_accessors ||= Rules.new
     end
     def defined_rules
       @defined_rules ||= {}
@@ -104,7 +105,7 @@ module Aska
   
   class Rules < Array
     def to_s
-      "#{self.join('", "')}"
+      self.map {|r| v=r.keys.first;"'#{v} #{r[v][0]} #{r[v][1]}'"}.join(", ")
     end
   end
 end
