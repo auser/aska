@@ -16,7 +16,10 @@ describe "Rules" do
     @car.rules.class.should == Hash
   end
   it "should be able to look up the rules based on the name into an array" do
-    @car.names.class.should == Array
+    @car.names.class.should == Aska::Rules
+  end
+  it "should be able to turn them into a string" do
+    @car.names.to_s.should == "\"x>0\", \"y>0\", \"x>y\""
   end
   it "should be able to say that rules are defined when they are defined" do
     @car.names.should_not be_nil

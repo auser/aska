@@ -25,13 +25,13 @@ module Aska
       attr_writer k.to_sym unless respond_to?("#{k}=".to_sym)
     end
     def look_up_rules(name)
-      defined_rules[name.to_sym] ||= []
+      defined_rules[name.to_sym] ||= Rules.new
     end
     def are_rules?(name)
       !look_up_rules(name).empty?
     end
     def aska_attr_accessors
-      @@aska_attr_accessors ||= []
+      @@aska_attr_accessors ||= Rules.new
     end
     def defined_rules
       @defined_rules ||= {}
@@ -100,5 +100,11 @@ module Aska
   def self.included(receiver)
     receiver.extend         ClassMethods
     receiver.send :include, InstanceMethods
+  end
+  
+  class Rules < Array
+    def to_s
+      "\"#{self.join('", "')}\""
+    end
   end
 end
