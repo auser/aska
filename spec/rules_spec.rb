@@ -56,13 +56,13 @@ describe "Rules" do
   #   @car.get_var(:x).class.should == @car.x_aska.class
   # end
   it "should be able to get a number with the instance and return it as a float" do
-    @car.get_var(4).class.should == Float
+    @car.__aska_get_var(4).class.should == Float
   end
   it "should be able to get the method it's applying as a method symbol" do
-    @car.get_var(:<).class.should == Symbol
+    @car.__aska_get_var(:<).class.should == Symbol
   end
   it "should be able to get the method as a symbol" do
-    @car.get_var("<").class.should == Symbol
+    @car.__aska_get_var("<").class.should == Symbol
   end
   it "should be able to retrieve the value of the rule when checking if it's valid" do
     @car.x = 10

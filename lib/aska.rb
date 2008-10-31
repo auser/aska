@@ -48,7 +48,7 @@ module Aska
     def valid_rules?(name=:rules)
       self.class.look_up_rules(name).reject {|rule| valid_rule?(rule) }.empty?
     end
-    def aska(m)
+    def __aska_aska_stuff(m)
       if respond_to?(m.to_sym)
         self.send(m.to_sym)
       else
@@ -59,7 +59,7 @@ module Aska
       rule.each do |key,value|
         begin
           # puts "#{aska(key)} #{value[0].to_sym} #{get_var(value[1])} (#{attr_accessor?(value[1])})"
-          return aska(key).send(value[0].to_sym, get_var(value[1]))
+          return __aska_aska_stuff(key).send(value[0].to_sym, __aska_get_var(value[1]))
         rescue Exception => e
           return false
         end
@@ -68,11 +68,11 @@ module Aska
     # Get the variable from the class
     # If it's defined as an attr_accessor, we know it has been defined as a rule
     # Otherwise, if we are passing it as a 
-    def get_var(name)
+    def __aska_get_var(name)
       # attr_accessor?(name) ? aska(name) : 
       (supported_method?(name) ? name.to_sym : name.to_f)
     end
-    def aska_named(name)
+    def __aska_aska(name)
       self.class.aska_named(name)
     end
     def attr_accessor?(name)
