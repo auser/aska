@@ -79,7 +79,7 @@ namespace(:pkg) do
   desc "Release them gem to the gem server"
   task :release => :prerelease do
     `git push origin master`
-    `mv #{::File.expand_path(::File.dirname(__FILE__))}/pkg/*.gem #{::File.expand_path(::File.dirname(__FILE__))}/pkg/poolparty-latest.gem`
-    `git add pkg/poolparty-latest.gem -f`
+    `mv #{::File.expand_path(::File.dirname(__FILE__))}/pkg/*.gem #{::File.expand_path(::File.dirname(__FILE__))}/pkg/aska-latest.gem`
+    `git add pkg/aska-latest.gem -f`
   end
 end
