@@ -6,7 +6,7 @@ begin
     p.summary = "The basics of an expert system"
     p.url = "http://blog.citrusbyte.com"
     p.dependencies = []
-    p.version = "0.0.7"
+    p.version = "0.0.8"
     p.install_message =<<-EOM
 
       Aska - Expert system basics
