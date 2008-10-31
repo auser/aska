@@ -9,6 +9,7 @@ begin
     p.summary = "The basics of an expert system"
     p.url = "http://blog.citrusbyte.com"
     p.dependencies = []
+    p.extra_deps = [] 
     p.version = "0.0.9"
     p.install_message =<<-EOM
 
