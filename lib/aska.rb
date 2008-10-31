@@ -1,17 +1,19 @@
 =begin rdoc
   Aska
 =end
+require "#{File.dirname(__FILE__)}/object"
 module Aska
   module ClassMethods
-    def rules(name=:rules, str="")
-      r = look_up_rules(name)
-      str.each_line do |line|
-        k = line[/(.+)[=\\\<\>](.*)/, 1].gsub(/\s+/, '')
-        v = line[/(.+)[=\\<>](.*)/, 2].gsub(/\s+/, '')
-        m = line[/[=\\<>]/, 0].gsub(/\s+/, '')
-        
-        create_instance_variable(k)
-        r << {k => [m, v]}
+    def rules(name=:rules, arr=[])
+      returning look_up_rules(name) do |rs|
+        arr.each do |line|
+          k = line[/(.+)[=\\\<\>](.*)/, 1].gsub(/\s+/, '')
+          v = line[/(.+)[=\\<>](.*)/, 2].gsub(/\s+/, '')
+          m = line[/[=\\<>]/, 0].gsub(/\s+/, '')
+
+          create_instance_variable(k)
+          rs << {k => [m, v]}
+        end
       end
     end
     def create_instance_variable(name)

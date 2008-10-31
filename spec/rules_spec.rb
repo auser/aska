@@ -2,11 +2,11 @@ require File.dirname(__FILE__) + '/spec_helper'
 
 class Car
   include Aska
-  rules :names, <<-EOR
-      x > 0      
-      y > 0
-      x > y
-    EOR
+  rules :names, [
+      "x > 0",
+      "y > 0",
+      "x > y"
+    ]
   def x=(v)
     @x = v
   end
