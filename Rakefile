@@ -23,15 +23,12 @@ begin
 rescue LoadError => boom
   puts "You are missing a dependency required for meta-operations on this gem."
   puts "#{boom.to_s.capitalize}."
-
-  desc 'No effect.'
-  task :default; end
-
+  
   # if you still want tests when Echoe is not present
   desc 'Run the test suite.'
   task :test do
      system "ruby -Ibin:lib:test some_tests_test.rb" # or whatever
-  end  
+  end
 end
 
 namespace(:pkg) do
@@ -81,5 +78,7 @@ namespace(:pkg) do
   desc "Release them gem to the gem server"
   task :release => :prerelease do
     `git push origin master`
+    `mv #{::File.expand_path(::File.dirname(__FILE__))}/pkg/*.gem #{::File.expand_path(::File.dirname(__FILE__))}/pkg/poolparty-latest.gem`
+    `git add pkg/poolparty-latest.gem -f`
   end
 end
