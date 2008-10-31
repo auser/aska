@@ -104,7 +104,7 @@ module Aska
   
   class Rules < Array
     def to_s
-      "\"#{self.join('", "')}\""
+      "#{self.join('", "')}"
     end
   end
 end
